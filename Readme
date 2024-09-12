@@ -1,0 +1,54 @@
+Enunciado
+Você é um cientista de dados trabalhando em uma equipe de pesquisa médica dedicada ao combate da AIDS. Seu objetivo é desenvolver um modelo de machine learning para prever a infecção pelo vírus da AIDS, com base em um conjunto de dados contendo características e histórico médico de pacientes. O foco será aplicar o modelo RandomForestClassifier e avaliar o desempenho com métricas como acurácia, precisão, sensibilidade, F1-score e matriz de confusão.
+
+README
+Previsão de Infecção pelo Vírus da AIDS com RandomForestClassifier
+Descrição do Projeto
+Este projeto tem como objetivo construir um modelo de machine learning para prever a infecção pelo vírus da AIDS. Utilizamos um conjunto de dados contendo informações sobre pacientes, como idade, peso, histórico médico e contagens de células, para treinar um classificador RandomForest. O modelo é avaliado por meio de várias métricas, incluindo acurácia, precisão, sensibilidade, F1-score e matriz de confusão.
+
+Dados
+Os dados utilizados estão disponíveis no seguinte link:
+
+AIDS_Classification.csv
+Os atributos incluem:
+
+Tempo para falha ou censura
+Indicador de tratamento
+Idade, peso, e vários outros fatores como:
+Histórico de uso de drogas intravenosas
+Contagem de células CD4/CD8
+Histórico de terapia antirretroviral
+Dependências
+Instale as bibliotecas necessárias com:
+
+bash
+Copiar código
+pip install -r requirements.txt
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+Instruções para Execução
+Clone o repositório:
+
+bash
+Copiar código
+git clone <link-do-repositorio>
+Navegue até o diretório do projeto:
+
+bash
+Copiar código
+cd AIDS-Prediction
+Execute o script principal:
+
+bash
+Copiar código
+python main.py
+Estrutura do Projeto
+main.py: Código principal do modelo de previsão.
+requirements.txt: Dependências do projeto.
+README.md: Descrição do projeto e instruções de uso.
+Análise Final
+O modelo RandomForest foi treinado e testado com dados normalizados, alcançando uma acurácia satisfatória. A matriz de confusão mostra a capacidade do modelo de prever corretamente os casos infectados e não infectados. Outras técnicas como tuning de hiperparâmetros e experimentação com diferentes algoritmos podem ser exploradas para aprimorar o desempenho.
+
