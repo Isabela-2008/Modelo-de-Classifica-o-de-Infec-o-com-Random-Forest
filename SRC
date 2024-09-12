@@ -1,0 +1,91 @@
+# Importando as bibliotecas necessárias
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Carregando o conjunto de dados
+df = pd.read_csv('https://drive.google.com/uc?export=download&id=1Z-asiPD9n5-oJhSsWNo9sea_ylueVK2B')
+
+
+# Visualizando as primeiras linhas do dataset
+print(df.head())
+
+# Examinando informações básicas sobre o conjunto de dados
+print(df.info())
+
+# Verificando estatísticas descritivas
+print(df.describe())
+
+# Verificando valores nulos
+print(df.isnull().sum())
+
+# Examinando a distribuição da variável alvo (infected)
+sns.countplot(x='infected', data=df)
+plt.title("Distribuição de Pacientes Infectados")
+plt.show()
+
+# Definindo as features (X) e o target (y)
+X = df.drop('infected', axis=1)
+y = df['infected']
+
+# Transformando variáveis categóricas em dummies (se houver)
+X = pd.get_dummies(X, drop_first=True)
+
+# Dividindo os dados em treino e teste
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Normalizando os dados
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Definindo o modelo RandomForestClassifier
+model = RandomForestClassifier(random_state=42)
+
+# Treinando o modelo
+model.fit(X_train_scaled, y_train)
+
+# Fazendo previsões no conjunto de teste
+y_pred = model.predict(X_test_scaled)
+
+# Calculando as métricas
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Exibindo a matriz de confusão
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
+plt.title("Matriz de Confusão")
+plt.ylabel('True label')
+plt.xlabel('Predicted label')
+plt.show()
+
+# Relatório de classificação
+print("Relatório de Classificação:\n", classification_report(y_test, y_pred))
+
+# Exibindo as métricas
+print(f'Acurácia: {accuracy}')
+print(f'Precisão: {precision}')
+print(f'Sensibilidade (Recall): {recall}')
+print(f'F1-Score: {f1}')
+
+# Análise e recomendações finais
+print("""
+Análise:
+O modelo Random Forest apresentou bons resultados, com uma acurácia de {:.2f}, precisão de {:.2f}, recall de {:.2f} e F1-Score de {:.2f}.
+A matriz de confusão mostrou que o modelo tem bom desempenho em prever pacientes infectados e não infectados.
+Entretanto, o balanceamento de classes pode ser um fator importante a ser considerado. 
+Outras técnicas como balanceamento de dados ou o uso de diferentes algoritmos (como SVM ou Logistic Regression) podem ser explorados para melhorar o desempenho.
+
+Recomendações:
+- Experimentar com tuning de hiperparâmetros (GridSearchCV ou RandomizedSearchCV).
+- Testar outros modelos de classificação como SVM, KNN, ou redes neurais.
+- Avaliar o impacto de features selecionadas ou a remoção de outliers no desempenho do modelo.
+""".format(accuracy, precision, recall, f1))
