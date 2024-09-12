@@ -1,0 +1,15 @@
+# Ambiente Virtual
+venv/
+.env
+
+# Arquivos do sistema
+*.log
+*.pyc
+__pycache__/
+
+# Dados temporários
+*.csv
+*.xlsx
+
+# Notebooks e relatórios gerados
+.ipynb_checkpoints/
